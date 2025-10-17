@@ -1,5 +1,5 @@
 """
-Django settings for receptionist_bot project.
+Django settings for clinica_bot project.
 """
 from pathlib import Path
 from decouple import config
@@ -33,7 +33,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'receptionist_bot.urls'
+ROOT_URLCONF = 'clinica_bot.urls'
 
 TEMPLATES = [
     {
@@ -51,7 +51,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'receptionist_bot.wsgi.application'
+WSGI_APPLICATION = 'clinica_bot.wsgi.application'
 
 # Database (not used, but required by Django)
 DATABASES = {
