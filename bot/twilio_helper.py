@@ -19,29 +19,25 @@ class TwilioWhatsAppHelper:
         )
         self.from_number = config('TWILIO_WHATSAPP_NUMBER')
     
-    def send_message_with_buttons(self, to_number, body_text, buttons):
+    def send_template_message(self, to_number, template_name, language='pt_BR', components=None):
         """
-        Send WhatsApp message with buttons (numbered fallback)
+        Send WhatsApp message using Twilio's Template
         
         Args:
             to_number: Recipient WhatsApp number
-            body_text: Message body text
-            buttons: List of dicts with 'id' and 'title' keys
+            template_name: The name/SID of the template to use
+            language: Template language code (default: pt_BR)
+            components: List of template components (optional)
             
         Returns:
             Message SID
         """
         try:
-            # Format message with numbered buttons
-            formatted_text = f"{body_text}\n\n"
-            for idx, btn in enumerate(buttons, 1):
-                formatted_text += f"{idx}. {btn['title']}\n"
-            formatted_text += "\nResponda com o número da opção."
-            
             message = self.client.messages.create(
                 from_=self.from_number,
                 to=to_number,
-                body=formatted_text
+                content_sid=template_name,
+                content_variables=json.dumps(components) if components else None
             )
             
             logger.info(f"Message sent: {message.sid}")
